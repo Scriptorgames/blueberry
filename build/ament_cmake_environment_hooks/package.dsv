@@ -1,0 +1,4 @@
+source;share/blueberry/local_setup.bash
+source;share/blueberry/local_setup.dsv
+source;share/blueberry/local_setup.sh
+source;share/blueberry/local_setup.zsh
