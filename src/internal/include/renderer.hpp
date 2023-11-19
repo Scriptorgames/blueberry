@@ -2,6 +2,8 @@
 
 #include <GL/glew.h>
 
+#include "graphics.hpp"
+
 namespace blueberry
 {
     class Renderer
@@ -26,7 +28,7 @@ namespace blueberry
         GLuint m_Vao;
         GLuint m_Vbo;
         GLuint m_Ibo;
-        GLuint m_Program;
+        Shader m_Shader;
         GLsizei m_Count;
     };
 }

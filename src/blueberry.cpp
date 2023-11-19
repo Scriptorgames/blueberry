@@ -1,5 +1,5 @@
-#include "internal/window.hpp"
-#include "internal/renderer.hpp"
+#include "internal/include/window.hpp"
+#include "internal/include/renderer.hpp"
 
 #include <GL/glew.h>
 

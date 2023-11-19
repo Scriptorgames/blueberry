@@ -19,8 +19,10 @@ find_package(glfw3 3.3 REQUIRED)
 
 add_executable(blueberry
   src/blueberry.cpp
+  
+  src/internal/simplerenderer.cpp
+  src/internal/shader.cpp
   src/internal/window.cpp
-  src/internal/renderer.cpp
 )
 
 target_link_libraries(blueberry

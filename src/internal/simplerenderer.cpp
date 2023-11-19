@@ -1,27 +1,16 @@
-#include "renderer.hpp"
+#include "include/renderer.hpp"
 
 namespace blueberry
 {
     SimpleRenderer::SimpleRenderer()
+        : m_Shader(
+              {
+                  "/home/schre/workspace/src/blueberry/res/shaders/default/default.vsh",
+                  "/home/schre/workspace/src/blueberry/res/shaders/default/default.fsh",
+              })
     {
         GLfloat vdata[]{-0.5f, -0.5f, 0, 0, -0.5f, 0.5f, 0, 1, 0.5f, 0.5f, 1, 1, 0.5f, -0.5f, 1, 0}; // x,y, u,v
         GLuint idata[]{0, 1, 2, 2, 3, 0};
-        const GLchar *vsource =
-            "#version 420 core\n\
-             layout(location = 0) in vec4 Position;\n\
-             layout(location = 1) in vec2 UV;\n\
-             out vec2 vUV;\n\
-             void main() {\n\
-               gl_Position = Position;\n\
-               vUV = UV;\n\
-             }\n";
-        const GLchar *fsource =
-            "#version 420 core\n\
-             in vec2 vUV;\n\
-             layout(location = 0) out vec4 Color;\n\
-             void main() {\n\
-               Color = vec4(vUV, 0.0, 1.0);\n\
-             }\n";
 
         m_Count = sizeof(idata) / sizeof(GLuint);
 
@@ -44,23 +33,6 @@ namespace blueberry
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
         glBindVertexArray(0);
-
-        m_Program = glCreateProgram();
-
-        GLuint vshader = glCreateShader(GL_VERTEX_SHADER);
-        glShaderSource(vshader, 1, &vsource, NULL);
-        glCompileShader(vshader);
-        glAttachShader(m_Program, vshader);
-        glDeleteShader(vshader);
-
-        GLuint fshader = glCreateShader(GL_FRAGMENT_SHADER);
-        glShaderSource(fshader, 1, &fsource, NULL);
-        glCompileShader(fshader);
-        glAttachShader(m_Program, fshader);
-        glDeleteShader(fshader);
-
-        glLinkProgram(m_Program);
-        glValidateProgram(m_Program);
     }
 
     SimpleRenderer::~SimpleRenderer()
@@ -72,11 +44,11 @@ namespace blueberry
     {
         glBindVertexArray(m_Vao);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_Ibo);
-        glUseProgram(m_Program);
+        m_Shader.Bind();
 
         glDrawElements(GL_TRIANGLES, m_Count, GL_UNSIGNED_INT, (const void *)0);
 
-        glUseProgram(0);
+        m_Shader.Unbind();
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
         glBindVertexArray(0);
     }
@@ -86,6 +58,6 @@ namespace blueberry
         glDeleteVertexArrays(1, &m_Vao);
         glDeleteBuffers(1, &m_Vbo);
         glDeleteBuffers(1, &m_Ibo);
-        glDeleteProgram(m_Program);
+        m_Shader.Delete();
     }
 }
