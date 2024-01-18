@@ -264,6 +264,7 @@
 				2,
 				3,
 				4,
+				5,
 				6,
 				7,
 				8,
@@ -681,6 +682,7 @@
 				2,
 				3,
 				4,
+				5,
 				6,
 				7,
 				8,
@@ -688,13 +690,6 @@
 				10,
 				11,
 				12
-			]
-		},
-		{
-			"name" : "",
-			"sourceIndexes" : 
-			[
-				5
 			]
 		}
 	],
@@ -732,8 +727,9 @@
 		},
 		{
 			"backtrace" : 1,
-			"path" : "src",
-			"sourceGroupIndex" : 1
+			"compileGroupIndex" : 0,
+			"path" : "src/widgets/widgets.cpp",
+			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
